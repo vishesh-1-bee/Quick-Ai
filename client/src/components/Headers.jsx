@@ -1,11 +1,19 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { AiToolsData, assets } from '../assets/assets'
-import { useUser } from '@clerk/clerk-react'
+import { SignIn, useUser } from '@clerk/clerk-react'
 import Logoscroll from './Logoscroll'
 const Headers = () => {
     const navigate = useNavigate()
     const { user } = useUser()
+
+    const start=()=>{
+if (user) {
+    navigate("/ai")
+}else{
+   <openSignIn/>
+}
+    }
     return (
         <div className='flex flex-col justify-center items-center py-12 md:py-20 text-center  '>
 
@@ -27,7 +35,8 @@ const Headers = () => {
 
 
             <div className='mt-7 md:mt-9 flex flex-col md:flex-row gap-7 space-x-3 justify-center items-center'>
-                <button onClick={() => navigate("/ai")}
+               
+                <button onClick={start}
                     className='bg-yellow-400/70 rounded-xl duration-300 transition-all px-5 py-3 md:py-2 text-sm font-semibold border-yellow-200
         hover:bg-black hover:border hover:duration-300 cursor-pointer hover:text-white hover:scale-105'>Start creating now</button>
                 <button className='border duration-300 transition-all border-slate-400 rounded-xl px-5 md:px-6 py-2 md:py-1 bg-slate-100

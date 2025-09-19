@@ -24,7 +24,7 @@ const Testdata  = () => {
     ]
 
     return (
-        <div className='px-4 sm:px-20 xl:px-32 py-16'>
+        <div className='px-4 sm:px-20 xl:px-32 py-16 '>
             <div className='text-center'>
                 <h2 className='text-slate-700 text-[42px] md:text-[56px] font-semibold'>Loved by {" "} 
                     <span className="bg-gradient-to-r from-yellow-300 to-black text-transparent bg-clip-text">Creators</span></h2>

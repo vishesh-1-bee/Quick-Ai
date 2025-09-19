@@ -35,26 +35,26 @@ const App = () => {
           }}
         />
         {/* Your Content/Components */}
-        <div className=' relative z-10 text-black'>
-          
-            <Nav />
+        <div className=' relative  text-black'>
+
          
 
- <AnimatePresence mode="wait">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/ai" element={<Layout />} >
-              <Route index element={<Dashboard />} />
-              <Route path='writeartice' element={<WriteArtice />} />
-              <Route path='blogTitle' element={<BlogTitle />} />
-              <Route path='background-remove' element={<Backgroundremove />} />
-              <Route path='community' element={<Community />} />
-              <Route path='gennerate-image' element={<GenerateImage />} />
-              <Route path='RemoveObject' element={<RemoveObject />} />
-              <Route path='ReviewResume' element={<ReviewResume />} />
 
-            </Route>
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/ai" element={<Layout />} >
+                <Route index element={<Dashboard />} />
+                <Route path='writeartice' element={<WriteArtice />} />
+                <Route path='blogTitle' element={<BlogTitle />} />
+                <Route path='background-remove' element={<Backgroundremove />} />
+                <Route path='community' element={<Community />} />
+                <Route path='gennerate-image' element={<GenerateImage />} />
+                <Route path='RemoveObject' element={<RemoveObject />} />
+                <Route path='ReviewResume' element={<ReviewResume />} />
+
+              </Route>
+            </Routes>
           </AnimatePresence>
         </div>
       </div>

@@ -8,7 +8,7 @@ const Nav = () => {
     const { user } = useUser()
     const { openSignIn } = useClerk()
     return (
-        <div className='w-full sticky top-0 z-50 bg-white/80 backdrop-blur-lg border-b border-slate-300 py-4 md:px-20 '>
+        <div className='w-full sticky top-0 z-50 bg-transparent backdrop-blur-lg border-b border-slate-300 py-4 md:px-20 '>
             <div className='relative md:p-2 p-2  px-8 bg-gradient-to-l from-yellow-400 to-slate-950  text-white text-sm rounded-full'>
                 <div className='flex justify-between items-center'>
                     <div className='items-center flex' >

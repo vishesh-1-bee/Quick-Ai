@@ -15,7 +15,7 @@ const Layout = () => {
 
   return user ? (
     <div className='border-2  min-h-screen flex flex-col justify-start'>
-      <nav className=' flex justify-between items-center md:px-5 py-2 backdrop-blur-lg bg-slate-00   border border-slate-700 '>
+      <nav className=' flex justify-between items-center md:px-5 py-2 backdrop-blur-lg bg-slate-00 border  border-slate-700 '>
         <img src={assets.logo} alt="" className='h-8 cursor-pointer  '
           onClick={() => navigate("/")} />
         <div className='mr-4 sm:hidden' onClick={toglemenu}>{mobile ? <X /> : <Menu />}</div>

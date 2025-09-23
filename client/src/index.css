@@ -8,3 +8,9 @@
 *{
     font-family: Outfit;
 }
+.reset-tw , .reset-tw *{
+ all: revert !important;
+}
+.cl-drewer{
+    z-index: 10;
+}

@@ -20,7 +20,7 @@ const WriteArtice = () => {
     <div className='p-6 h-full   flex overflow-y-scroll items-start flex-wrap gap-9 text-slate-800 '>
       {/* left col */}
       <form onSubmit={handleSubmit}
-        className='p-6 rounded-lg border w-full md:max-w-lg bg-white'>
+        className='p-6 rounded-lg border border-slate-300 w-full md:max-w-lg bg-white'>
         <span className='flex items-center gap-3 w-full'>
           <Sparkles className='w-6 text-blue-500' />
           <h1 className='text-xl font-semibold '>Article Configration</h1>

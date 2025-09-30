@@ -5,13 +5,13 @@ import Layout from './pages/layout'
 import Dashboard from './pages/dashboard'
 import WriteArtice from './pages/writeArtice'
 import BlogTitle from './pages/blogTitle'
-import Backgroundremove from './pages/backgroundremove'
-import Community from './pages/Community'
+import Backgroundremove from './pages/Backgroundremove'
+
 import GenerateImage from './pages/generateImage'
 import RemoveObject from './pages/removeObject'
 import ReviewResume from './pages/reviewResume'
 import { AnimatePresence } from 'framer-motion'
-
+import Community from './pages/community'
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },

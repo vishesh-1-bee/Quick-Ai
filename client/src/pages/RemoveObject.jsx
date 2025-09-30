@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 
 const RemoveObject = () => {
   const [input, setinput] = useState()
-
+  const [object, setobject] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +23,7 @@ const RemoveObject = () => {
         {/* input box */}
         <div className='mt-5'>
           <h2 className='text-xs font-semibold tracking-tight'>Upload image</h2>
-          <input type='file' onChange={(e) => setinput(e.target.value)} value={input}
+          <input type='file' onChange={(e) => setinput(e.target.files[0])} accept='image/*'
             className='border border-slate-500 w-full p-2 rounded-lg mt-2 outline-none' placeholder='Enter Text' required />
         </div>
         <p className='text-xs text-start text-slate-500 mt-1'>Supports JPG, PNG, and other image formats</p>
@@ -32,14 +32,14 @@ const RemoveObject = () => {
 
           <h4 className='text-sm text-slate-600'>Describe object name to remove</h4>
 
-          <textarea rows={3} onChange={(e) => setinput(e.target.value)} value={input} 
+          <textarea rows={3} onChange={(e) => setobject(e.target.value)} value={input}
             className='border border-slate-500 w-full p-2 rounded-lg outline-none' placeholder='Only single object name eg:spoon' required />
 
           <button className='flex bg-amber-200 w-full justify-center items-center gap-4
           text-sm rounded-lg cursor-pointer px-4 py-2 mt-4
           bg-gradient-to-r from-sky-400  to-sky-700 text-white'>
             <Scissors className='w-5' />
-            <h3>Remove Background</h3>
+            <h3>Remove Object</h3>
           </button>
         </div>
 

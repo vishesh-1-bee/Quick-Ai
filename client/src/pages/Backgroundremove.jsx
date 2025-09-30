@@ -24,7 +24,7 @@ const Backgroundremove = () => {
         {/* input box */}
         <div className='mt-5'>
           <h2 className='text-xs font-semibold tracking-tight'>Upload image</h2>
-          <input type='file' onChange={(e) => setinput(e.target.value)} value={input}
+          <input type='file' onChange={(e) => setinput(e.target.files[0])} accept='image/*'
             className='border border-slate-500 w-full p-2 rounded-lg mt-2 outline-none' placeholder='Enter Text' required />
         </div>
          <p className='text-xs text-start text-slate-500 mt-1'>Supports JPG, PNG, and other image formats</p>

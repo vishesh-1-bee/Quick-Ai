@@ -3,6 +3,7 @@ import cors from 'cors'
 import 'dotenv/config'
 
 import { clerkMiddleware, requireAuth } from '@clerk/express'
+import routes from './routes/airoutes.js'
 const app = express()
 const PORT = 3002
 app.use(clerkMiddleware())
@@ -22,8 +23,10 @@ app.get('/', (req, res) => {
 
 })
 
-//adding th eprotected routes
+//adding th protected routes
 app.use(requireAuth())
+//here all the routes are protected
+app.use("/api/ai", routes)
 app.listen(PORT, () => {
     console.log(`server is running on the  http://localhost:${PORT}`);
 

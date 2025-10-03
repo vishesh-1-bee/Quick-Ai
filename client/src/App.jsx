@@ -12,6 +12,8 @@ import RemoveObject from './pages/removeObject'
 import ReviewResume from './pages/reviewResume'
 import { AnimatePresence } from 'framer-motion'
 import Community from './pages/community'
+import { useAuth } from '@clerk/clerk-react'
+import { useEffect } from 'react'
 const pageTransition = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -21,53 +23,59 @@ const pageTransition = {
 
 const App = () => {
   const location = useLocation()
+  //code to generate token
 
-  return (
-    <div className="relative min-h-screen w-full">
-      {/* Layer 1: Noise Texture Background */}
-      <div
-        className="absolute inset-0 -z-20"
-        style={{
-          background: 'white',
-          backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0)',
-          backgroundSize: '20px 20px',
-        }}
-      />
+  const { getToken } = useAuth()
+  useEffect(() => {
+    getToken().then((token) => console.log(token)
+    )
+}, [])
+return (
+  <div className="relative min-h-screen w-full">
+    {/* Layer 1: Noise Texture Background */}
+    <div
+      className="absolute inset-0 -z-20"
+      style={{
+        background: 'white',
+        backgroundImage:
+          'radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.35) 1px, transparent 0)',
+        backgroundSize: '20px 20px',
+      }}
+    />
 
-      {/* Layer 2: Purple Gradient Grid Background */}
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `
+    {/* Layer 2: Purple Gradient Grid Background */}
+    <div
+      className="absolute inset-0 -z-10"
+      style={{
+        backgroundImage: `
             linear-gradient(to right, #f0f0f0 1px, transparent 1px),
             linear-gradient(to bottom, #f0f0f0 1px, transparent 1px),
             radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent)
           `,
-          backgroundSize: '96px 64px, 96px 64px, 100% 100%',
-        }}
-      />
+        backgroundSize: '96px 64px, 96px 64px, 100% 100%',
+      }}
+    />
 
-      {/* Page Content */}
-      <div className="relative z-10 text-black">
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/ai" element={<Layout />}>
-              <Route index element={<Dashboard />} />
-              <Route path="writeartice" element={<WriteArtice />} />
-              <Route path="blogTitle" element={<BlogTitle />} />
-              <Route path="background-remove" element={<Backgroundremove />} />
-              <Route path="community" element={<Community />} />
-              <Route path="gennerate-image" element={<GenerateImage />} />
-              <Route path="RemoveObject" element={<RemoveObject />} />
-              <Route path="ReviewResume" element={<ReviewResume />} />
-            </Route>
-          </Routes>
-        </AnimatePresence>
-      </div>
+    {/* Page Content */}
+    <div className="relative z-10 text-black">
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Home />} />
+          <Route path="/ai" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            <Route path="writeartice" element={<WriteArtice />} />
+            <Route path="blogTitle" element={<BlogTitle />} />
+            <Route path="background-remove" element={<Backgroundremove />} />
+            <Route path="community" element={<Community />} />
+            <Route path="gennerate-image" element={<GenerateImage />} />
+            <Route path="RemoveObject" element={<RemoveObject />} />
+            <Route path="ReviewResume" element={<ReviewResume />} />
+          </Route>
+        </Routes>
+      </AnimatePresence>
     </div>
-  )
+  </div>
+)
 }
 
 export default App

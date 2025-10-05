@@ -4,7 +4,10 @@ import 'dotenv/config'
 
 import { clerkMiddleware, requireAuth } from '@clerk/express'
 import routes from './routes/airoutes.js'
+import connectCloudnary from './utils/cloudnary.js'
 const app = express()
+//function to connect eith cloudnary
+await connectCloudnary()
 const PORT = 3002
 app.use(clerkMiddleware())
 

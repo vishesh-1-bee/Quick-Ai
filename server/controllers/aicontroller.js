@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import sql from "../utils/db.js";
 import { clerkClient } from "@clerk/express";
 import axios from 'axios'
-import {v2 as cloudnary} from 'cloudinary'
+import { v2 as cloudnary } from 'cloudinary'
 
 
 const AI = new OpenAI({
@@ -110,8 +110,8 @@ export const generateBlogTitle = async (req, res) => {
     }
 }
 
-//generate image
 
+//generate image
 export const generateimage = async (req, res) => {
     try {
         //we will get the userid from the clerk
@@ -139,25 +139,18 @@ export const generateimage = async (req, res) => {
 
         )
         //we will get the image in base64 we will convert it into the imageurl
-        const base64Image = `data :image/png;base64,${Buffer.from(data , 'binary').toString('base64')}`;
+        const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`;
 
         //storing the genrated image in the cloudnary so we fetch in frontend
-
+        const { secure_url } = await cloudnary.uploader.upload(base64Image);
 
 
         //now we are storung the data genereated in the database
-        await sql`INSERT INTO creations (user_id, prompt, content, type)
-        VALUES (${userId}, ${prompt}, ${content}, 'article')`
+        await sql`INSERT INTO creations (user_id, prompt, content, type, publish)
+        VALUES (${userId}, ${prompt}, ${secure_url}, 'image' , ${publish ?? false})`
 
-        if (plan !== 'premium') {
-            await clerkClient.users.updateUserMetadata(userId, {
-                privateMetadata: {
-                    free_usage: free_usage + 1
-                }
 
-            })
-        }
-        res.status(200).json({ success: true, content })
+        res.status(200).json({ success: true, content : secure_url })
     } catch (error) {
         console.log(error);
         res.status(400).json({ msg: error.message })

@@ -150,10 +150,91 @@ export const generateimage = async (req, res) => {
         VALUES (${userId}, ${prompt}, ${secure_url}, 'image' , ${publish ?? false})`
 
 
-        res.status(200).json({ success: true, content : secure_url })
+        res.status(200).json({ success: true, content: secure_url })
     } catch (error) {
         console.log(error);
         res.status(400).json({ msg: error.message })
 
     }
-} 
+}
+
+//code for background removal
+export const removeBcakgroundImage = async (req, res) => {
+    try {
+        //we will get the userid from the clerk
+        const { userId } = req.auth()
+        const { image } = req.file
+        const plan = req.plan;
+
+
+        //this feature is only for premium user
+        if (plan !== 'premium') {
+
+            return res.status(400).json({ msg: "This feature is available for premium user" })
+        }
+
+
+        //storing the genrated image in the cloudnary so we fetch in frontend
+        const { secure_url } = await cloudnary.uploader.upload(image.path, {
+            transformation: [
+                {
+                    effect: 'background_removal',
+                    background_removal: 'remove_the_background'
+                }
+            ]
+        });
+
+
+        //now we are storung the data genereated in the database
+        await sql`INSERT INTO creations (user_id, prompt, content, type, )
+        VALUES (${userId}, 'remove background from image', ${secure_url}, 'image' , )`
+
+
+        res.status(200).json({ success: true, content: secure_url })
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ msg: error.message })
+
+    }
+}
+
+//code to remove the object from the image
+export const removeImageObject = async (req, res) => {
+    try {
+        //we will get the userid from the clerk
+        const { userId } = req.auth()
+        const { object } = req.body
+        const { image } = req.file
+        const plan = req.plan;
+
+
+        //this feature is only for premium user
+        if (plan !== 'premium') {
+
+            return res.status(400).json({ msg: "This feature is available for premium user" })
+        }
+
+
+        //storing the genrated image in the cloudnary so we fetch in frontend
+        const { public_id } = await cloudnary.uploader.upload(image.path);
+
+
+
+        //we are removing object using cloudnary
+       const imageUrl = cloudnary.url(public_id , {
+            transformation:[{effect : `gen_remove:${object}`}],
+            resource_type: 'image'
+        })
+        //now we are storung the data genereated in the database
+        await sql`INSERT INTO creations (user_id, prompt, content, type, )
+        VALUES (${userId}, ${`remove ${object} from image`}, ${imageUrl}, 'image'  )`
+
+
+        res.status(200).json({ success: true, content: imageUrl })
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ msg: error.message })
+
+    }
+}
+

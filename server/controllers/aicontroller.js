@@ -3,7 +3,8 @@ import sql from "../utils/db.js";
 import { clerkClient } from "@clerk/express";
 import axios from 'axios'
 import { v2 as cloudnary } from 'cloudinary'
-
+import fs from 'fs'
+import * as pdfParse from "pdf-parse";
 
 const AI = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
@@ -221,8 +222,8 @@ export const removeImageObject = async (req, res) => {
 
 
         //we are removing object using cloudnary
-       const imageUrl = cloudnary.url(public_id , {
-            transformation:[{effect : `gen_remove:${object}`}],
+        const imageUrl = cloudnary.url(public_id, {
+            transformation: [{ effect: `gen_remove:${object}` }],
             resource_type: 'image'
         })
         //now we are storung the data genereated in the database
@@ -231,6 +232,61 @@ export const removeImageObject = async (req, res) => {
 
 
         res.status(200).json({ success: true, content: imageUrl })
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({ msg: error.message })
+
+    }
+}
+
+//code to rewiew resume
+export const reviewResume = async (req, res) => {
+    try {
+        //we will get the userid from the clerk
+        const { userId } = req.auth()
+        const resume = req.file
+        const plan = req.plan;
+
+
+        //this feature is only for premium user
+        if (plan !== 'premium') {
+
+            return res.status(400).json({ msg: "This feature is available for premium user" })
+        }
+
+        if (resume.size > 5 * 1024 * 1024) {
+            return res.status(400).json({ msg: "the file is larger then 5MB" })
+        }
+
+        const databuffer = fs.writeFileSync(resume.path)
+        //code to feth the text data in the resume
+        const pdfdata = await pdfParse.default(databuffer)
+
+        const prompt = `Review the following resume an d provide the constructive feedback on its 
+        strength , weekness and area of improvements . Resume content:\n\n${pdfdata.text}`
+
+        const response = await AI.chat.completions.create({
+            model: "gemini-2.0-flash",
+            messages: [
+
+                {
+                    role: "user",
+                    content: prompt,
+                },
+            ],
+            temperature: 0.5,
+            max_tokens: length || 5000
+        });
+
+        const content = response.choices[0].message.content
+
+
+        //now we are storung the data genereated in the database
+        await sql`INSERT INTO creations (user_id, prompt, content, type, )
+        VALUES (${userId}, 'review the resume', ${content}, 'resume'  )`
+
+
+        res.status(200).json({ success: true, content: content })
     } catch (error) {
         console.log(error);
         res.status(400).json({ msg: error.message })

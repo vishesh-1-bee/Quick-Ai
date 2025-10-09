@@ -7,10 +7,19 @@
 }
 *{
     font-family: Outfit;
+    
 }
 .reset-tw , .reset-tw *{
  all: revert !important;
 }
-.cl-drewer{
-    z-index: 10;
+/* Force Clerk drawer and modals to top */
+.cl-drawerRoot,
+.cl-modal {
+  z-index: 9999 !important;
+  position: relative !important;
+}
+
+/* Sometimes the overlay also needs to be lifted */
+.cl-overlay {
+  z-index: 9998 !important;
 }

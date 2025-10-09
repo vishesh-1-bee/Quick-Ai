@@ -55,7 +55,7 @@ radial-gradient(circle 800px at 100% 200px, #d5c5ff, transparent)
         {/* Desktop */}
         <div className="hidden flex-1 sm:flex w-full h-[calc(100vh-64px)]">
           <Sidebar />
-          <div className="flex-1 ">
+          <div className="flex-1  ">
             <Outlet />
           </div>
         </div>

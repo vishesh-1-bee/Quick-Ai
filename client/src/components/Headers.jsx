@@ -11,7 +11,7 @@ const Headers = () => {
 if (user) {
     navigate("/ai")
 }else{
-   <openSignIn/>
+   openSignIn({ appearance: { layout: "modal" } });
 }
     }
     return (
@@ -73,4 +73,3 @@ if (user) {
 }
 
 export default Headers
-Logoscroll

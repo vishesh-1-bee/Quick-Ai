@@ -10,7 +10,7 @@ const navItems = [
   { to: '/ai/gennerate-image', label: 'Image Generation', Icon: Image },
   { to: '/ai/background-remove', label: 'Background Removal', Icon: Eraser },
   { to: '/ai/RemoveObject', label: 'Object Removal', Icon: Scissors },
-  { to: '/ai/Review-Resume', label: 'Review Resume', Icon: File },
+  { to: '/ai/ReviewResume', label: 'Review Resume', Icon: File },
   { to: '/ai/community', label: 'Community', Icon: User },
 
 ]

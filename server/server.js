@@ -5,6 +5,7 @@ import 'dotenv/config'
 import { clerkMiddleware, requireAuth } from '@clerk/express'
 import routes from './routes/airoutes.js'
 import connectCloudnary from './utils/cloudnary.js'
+import userRoutes from './routes/userroutes.js'
 const app = express()
 //function to connect eith cloudnary
 await connectCloudnary()
@@ -30,6 +31,7 @@ app.get('/', (req, res) => {
 app.use(requireAuth())
 //here all the routes are protected
 app.use("/api/ai", routes)
+app.use("/api/user", userRoutes)
 app.listen(PORT, () => {
     console.log(`server is running on the  http://localhost:${PORT}`);
 

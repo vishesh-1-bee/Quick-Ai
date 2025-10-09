@@ -12,7 +12,7 @@ const Home = () => {
        <Nav />
       <Headers/>
      <Testdata/>
-     <Plans/>
+     <Plans />
      <Footer/>
     </div>
   )

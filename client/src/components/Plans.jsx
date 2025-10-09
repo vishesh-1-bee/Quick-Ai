@@ -14,7 +14,7 @@ const Plans = () => {
       </div>
 
       {/* Displaying price */}
-      <div className="mt-14 flex justify-center w-[100%] ">
+      <div className="mt-14 flex justify-center w-[100%]  ">
         <PricingTable />
       </div>
     </div>
